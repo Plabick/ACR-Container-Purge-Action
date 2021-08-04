@@ -5,7 +5,7 @@ on:
     branches: [ master ]
 jobs:
   update-readme:
-    runs-on: [self-hosted, linux]
+    runs-on: [ubuntu-latest]
     timeout-minutes: 5
     steps:
     - uses: actions/checkout@v2
