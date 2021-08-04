@@ -26,3 +26,6 @@ RUN mkdir -p /opt/microsoft/powershell/7
 RUN tar zxf /tmp/powershell.tar.gz -C /opt/microsoft/powershell/7
 RUN chmod +x /opt/microsoft/powershell/7/pwsh
 RUN ln -s /opt/microsoft/powershell/7/pwsh /usr/bin/pwsh
+
+ADD entrypoint.sh  /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
