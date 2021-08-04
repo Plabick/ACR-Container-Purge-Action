@@ -36,7 +36,6 @@ inputs:
     description: 'Save this many containers from being purged that otherwise meet all other purge rules'
     required: false
     default: '10'
-  
 runs:
   using: 'docker'
   image: 'Dockerfile'
