@@ -1,7 +1,7 @@
 # ACR Container Purge Action
 ## Description
 
-An action to purge containers from the Azure Container Registry using the [ACR purge command](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-auto-purge). By default, the action purges containers from every repository in the ACR. You can run the purge on only one repo using the `repo` input, repos matching a regex using the 'repo-regex' input, or all repos in your ACR by leaving both blank. The purge only applies to containers who's tag matches the 'tag-regex' input and that are older then 'days-to-keep'.
+An action to purge containers from the Azure Container Registry using the [ACR purge command](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-auto-purge). By default, the action purges containers from every repository in the ACR. You can run the purge on only one repo using the `repo` input, repos matching a regex using the `repo-regex` input, or all repos in your ACR by leaving both blank. The purge only applies to containers who's tag matches the `tag-regex` input and that are older then 'days-to-keep'.
 
 ## Inputs
 
