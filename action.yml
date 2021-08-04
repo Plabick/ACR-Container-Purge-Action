@@ -1,0 +1,52 @@
+name: 'ACR Container Purge Action'
+description: 'An action to purge containers in the Azure Container Registry'
+author: 'Plabick'
+branding:
+  icon: 'trash-2'  
+  color: 'orange'
+inputs:
+  registry:
+    description: 'The name of the Azure Container Registry to purge. Case insensitive i.e exampleazureregistry'
+    required: true
+  username: 
+    description: 'Azure Service Principal Username'
+    required: true
+  tenant: 
+    description: 'Azure Service Principal Tenant'
+    required: true
+  password:
+    description: 'Azure Service Principal Tennant ID'
+    required: true
+  repo:
+    description: 'The ACR repository to purge containers from. Leave blank to purge from all repositories'
+    required: false
+    default: 'all'
+  tag-regex:
+    description: 'Only purge containers with tags matching this regex. Leave blank to purge containers with any tag'
+    required: false
+    default: '.*'
+  repo-regex:
+    description: 'Only purge containers from ACR repositories matching this regex. Only applicable if `repo` input is unset. Leave blank to purge containers from all repositories'
+    required: false
+    default: '.*'
+  days-to-keep:
+    description: 'Do not purge any containers younger than this'
+    default: '7'
+  keep:
+    description: 'Save this many containers from being purged that otherwise meet all other purge rules'
+    required: false
+    default: '10'
+  
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.registry }}
+    - ${{ inputs.username }}
+    - ${{ inputs.tenant }}
+    - ${{ inputs.password }}
+    - ${{ inputs.repo }}
+    - ${{ inputs.tag-regex }}
+    - ${{ inputs.repo-regex }}
+    - ${{ inputs.days-to-keep }}
+    - ${{ inputs.keep }}
