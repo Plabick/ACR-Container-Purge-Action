@@ -28,4 +28,6 @@ RUN chmod +x /opt/microsoft/powershell/7/pwsh
 RUN ln -s /opt/microsoft/powershell/7/pwsh /usr/bin/pwsh
 
 ADD entrypoint.sh  /entrypoint.sh
+ADD purge.ps1  /purge.ps1
+
 ENTRYPOINT ["/entrypoint.sh"]
