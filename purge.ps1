@@ -12,15 +12,14 @@ param (
 az login --service-principal -u $username -p $password --tenant $tenant
 Write-Host "-----Logged In -----"
 if ($repoTarget -eq "all") {
-	$REPOS = az acr repository list -n $registry
-	$REPOS = $REPOS.Replace("[", "").Replace("]", "")
+	$REPOS = az acr repository list -n $registry  | Where-Object { ($_ –ne "[") -and ($_ –ne "]") }
 	foreach ($REPO in $REPOS) {
-		if ($REPO -match $repoRegex && $REPO -ne "") {
+		if ($REPO -match $repoRegex) {
 			$REPO = $REPO.Replace(" ", "").Replace(",", "")
 			Write-Output "----- Purging $REPO -----"
 			az acr run --registry $registry --cmd "acr purge --ago ${daysToKeep}d --keep $keep --filter '${REPO}:$tagRegex' " /dev/null
 		}	
-        }
+	}
 }
 else {
 	az acr run --registry $registry --cmd "acr purge --ago ${daysToKeep}d --keep $keep --filter '${repoTarget}:$tagRegex' " /dev/null
