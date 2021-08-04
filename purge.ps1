@@ -9,19 +9,19 @@ param (
 	[Parameter(Mandatory = $false)]$daysToKeep = $env:daysToKeep,
 	[Parameter(Mandatory = $false)]$keep = $env:keep
 )
-
 az login --service-principal -u $username -p $password --tenant $tenant
-
+Write-Host "-----Logged In -----"
 if ($repoTarget -eq "all") {
-	az acr run --registry $registry --cmd "acr purge --ago $daysToKeep --keep $keep --filter '${repoTarget}:$tagRegex' " /dev/null
+	$REPOS = az acr repository list -n $registry
+	$REPOS = $REPOS.Replace("[", "").Replace("]", "")
+	foreach ($REPO in $REPOS) {
+		if ($REPO -match $repoRegex && $REPO -ne "") {
+			$REPO = $REPO.Replace(" ", "").Replace(",", "")
+			Write-Output "----- Purging $REPO -----"
+			az acr run --registry $registry --cmd "acr purge --ago ${daysToKeep}d --keep $keep --filter '${REPO}:$tagRegex' " /dev/null
+		}	
+        }
 }
 else {
-	$REPOS = az acr repository list -n $registry
-	foreach ($REPO in $REPOS) {
-  $REPO = $REPO.Replace(",", "").Replace(" ", "")
-  if ( ($REPO -match $repoRegex) && ($REPO -ne "[") && ($REPO -ne "]")) {
-			Write-Output "----- Purging $REPO -----"
-			az acr run --registry $registry --cmd "acr purge --ago $daysToKeep --keep $keep --filter '${REPO}:$tagRegex' " /dev/null
-		}
-	}
+	az acr run --registry $registry --cmd "acr purge --ago ${daysToKeep}d --keep $keep --filter '${repoTarget}:$tagRegex' " /dev/null
 }
