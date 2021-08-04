@@ -1,5 +1,5 @@
-name: 'ACR Container Purge Action'
-description: 'An action to purge containers in the Azure Container Registry'
+name: 'ACR Container Purge'
+description: 'Purge containers from your the Azure Container Registry'
 author: 'Plabick'
 branding:
   icon: 'trash-2'  
