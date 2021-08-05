@@ -43,6 +43,8 @@ inputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
+  env:
+    DRYRUN: ${{ inputs.dry-run }}
   args:
     - ${{ inputs.registry }}
     - ${{ inputs.username }}
@@ -53,4 +55,4 @@ runs:
     - ${{ inputs.repo-regex }}
     - ${{ inputs.days-to-keep }}
     - ${{ inputs.keep }}
-    - ${{ inputs.dry-run }}
+
