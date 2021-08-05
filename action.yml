@@ -36,6 +36,10 @@ inputs:
     description: 'Save this many containers from being purged that otherwise meet all other purge rules'
     required: false
     default: '10'
+  dry-run:
+    description: "Conducts a dry run and does not delete any containers"
+    required: false
+    default: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -49,3 +53,4 @@ runs:
     - ${{ inputs.repo-regex }}
     - ${{ inputs.days-to-keep }}
     - ${{ inputs.keep }}
+    - ${{ inputs.dry-run }}
