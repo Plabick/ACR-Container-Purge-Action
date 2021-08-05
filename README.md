@@ -17,6 +17,7 @@ An action to purge containers from the Azure Container Registry using the [ACR p
 | days-to-keep | Do not purge any containers younger than this | `false` | 7 |
 | keep | Save this many containers from being purged that otherwise meet all other purge rules | `false` | 10 |
 | dry-run | Run a dry-run of the purge. Output is the same as during a real purge but nothing is deleted | `false` | `false` |
+| delete-untagged | Specifies that manifests that don't have associated tags (untagged manifests) are deleted. | `false` | `false` |
 
 
 ## Example Usage
@@ -51,6 +52,7 @@ jobs:
         tag-regex: ${{ env.regex-feature }}
         days-to-keep: ${{ env.days-to-keep-feature }}
         keep: ${{ env.keep-feature }}
+        delete-untagged: True
     
     - name: Purge Master Containers
       uses: Plabick/ACR-Container-Purge-Action@master
