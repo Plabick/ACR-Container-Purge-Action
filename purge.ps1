@@ -12,7 +12,11 @@ param (
 )
 az login --service-principal -u $username -p $password --tenant $tenant
 Write-Host "-----Logged In -----"
-$dryRunCommand = If ($dryRun -eq $true) {"--dry-run"} Else {""}
+If ($dryRun -eq $true) {
+echo "----- Conducting Dry Run -----"
+$dryRunCommand = "--dry-run"
+} Else {
+$dryRunCommand = ""}
 if ($repoTarget -eq "all") {
 	$REPOS = az acr repository list -n $registry  | Where-Object { ($_ –ne "[") -and ($_ –ne "]") }
 	foreach ($REPO in $REPOS) {
