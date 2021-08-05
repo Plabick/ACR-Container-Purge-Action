@@ -16,6 +16,8 @@ An action to purge containers from the Azure Container Registry using the [ACR p
 | repo-regex | Only purge containers from ACR repositories matching this regex. Only applicable if `repo` input is unset. Leave blank to purge containers from all repositories | `false` | .* |
 | days-to-keep | Do not purge any containers younger than this | `false` | 7 |
 | keep | Save this many containers from being purged that otherwise meet all other purge rules | `false` | 10 |
+| dry-run | Run a dry-run of the purge. Output is the same as during a real purge but nothing is deleted | `false` | `false` |
+
 
 ## Example Usage
 
